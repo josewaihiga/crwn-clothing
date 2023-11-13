@@ -1,6 +1,8 @@
 import "./sign-up-form.style.scss";
 import { useState } from "react";
 
+import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -20,10 +22,25 @@ const SignUpForm = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("submitted", formFields);
+    
+    // TODO confirm that the password matches
+    if(password !== confirmPassword) alert(`${password} != ${confirmPassword}`)
+
+    // TODO Check if the user is authenticated with email and password
+
+    // 
+
+    const test = await createAuthUserWithEmailAndPassword(email, password);
+    console.log(test);
+  
+
+    // TODO create a user document from the return (don't forget to include the displayName when creating the user)
+
+
+    // console.log("submitted", formFields);
   };
 
   return (
@@ -38,12 +55,12 @@ const SignUpForm = () => {
         <input type="email" required onChange={handleChange} name="email" value={email}/>
 
         <label>Password</label>
-        <input type="password" required onChange={handleChange} name="password" value={password}/>
+        <input type="password" minlength="6" required onChange={handleChange} name="password" value={password}/>
 
         <label>Confirmed Password</label>
-        <input type="password" required onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
+        <input type="password" minlength="6" required onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
 
-        <button type="submit">Submit</button>
+        <button disabled={password.length >= 8 ? "false" : "true"} type="submit">Submit</button>
       </form>
     </div>
   );
