@@ -10,9 +10,17 @@ const defaultFormFields = {
   confirmPassword: "",
 };
 
+
+
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+
+  // Form validation criteria
+  const passwordLength = 8;
+  // This works, though I don't think it's good UX to have the submit button disabled without showing clear warnings as to why.
+  // const validated = password.length >= passwordLength;
+
 
   console.log(formFields);
 
@@ -55,12 +63,13 @@ const SignUpForm = () => {
         <input type="email" required onChange={handleChange} name="email" value={email}/>
 
         <label>Password</label>
-        <input type="password" minlength="6" required onChange={handleChange} name="password" value={password}/>
+        <input type="password" minLength={passwordLength} required onChange={handleChange} name="password" value={password}/>
 
         <label>Confirmed Password</label>
-        <input type="password" minlength="6" required onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
+        <input type="password" minLength={passwordLength} required onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
 
-        <button disabled={password.length >= 8 ? "false" : "true"} type="submit">Submit</button>
+        {/* <button disabled={!validated} type="submit">Submit</button> */}
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
