@@ -1,7 +1,10 @@
 import "./sign-up-form.style.scss";
 import { useState } from "react";
 
-import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase.utils";
 
 const defaultFormFields = {
   displayName: "",
@@ -9,8 +12,6 @@ const defaultFormFields = {
   password: "",
   confirmPassword: "",
 };
-
-
 
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -21,8 +22,9 @@ const SignUpForm = () => {
   // This works, though I don't think it's good UX to have the submit button disabled without showing clear warnings as to why.
   // const validated = password.length >= passwordLength;
 
-
   console.log(formFields);
+
+  const resetFormFields = () => {setFormFields(defaultFormFields)}
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -33,22 +35,28 @@ const SignUpForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    
-    // TODO confirm that the password matches
-    if(password !== confirmPassword) alert(`${password} != ${confirmPassword}`)
+    // confirm that the password matches
+    if (password !== confirmPassword) alert("Passwords do not match");
 
-    // TODO Check if the user is authenticated with email and password
-
-    // 
-
-    const test = await createAuthUserWithEmailAndPassword(email, password);
-    console.log(test);
-  
-
-    // TODO create a user document from the return (don't forget to include the displayName when creating the user)
-
-
-    // console.log("submitted", formFields);
+    // Authenticate then create userDoc with additional information (displayName)
+    try {
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      const userDocRef = await createUserDocumentFromAuth(user, {
+        displayName,
+      });
+      resetFormFields();
+    } catch (error) {
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          alert("Cannot create user, email already in use");
+          break;
+        default:
+          console.error(error);
+      }
+    }
   };
 
   return (
@@ -57,16 +65,42 @@ const SignUpForm = () => {
 
       <form onSubmit={handleSubmit}>
         <label>Display Name</label>
-        <input type="text" required onChange={handleChange} name="displayName" value={displayName}/>
+        <input
+          type="text"
+          required
+          onChange={handleChange}
+          name="displayName"
+          value={displayName}
+        />
 
         <label>Email</label>
-        <input type="email" required onChange={handleChange} name="email" value={email}/>
+        <input
+          type="email"
+          required
+          onChange={handleChange}
+          name="email"
+          value={email}
+        />
 
         <label>Password</label>
-        <input type="password" minLength={passwordLength} required onChange={handleChange} name="password" value={password}/>
+        <input
+          type="password"
+          minLength={passwordLength}
+          required
+          onChange={handleChange}
+          name="password"
+          value={password}
+        />
 
         <label>Confirmed Password</label>
-        <input type="password" minLength={passwordLength} required onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
+        <input
+          type="password"
+          minLength={passwordLength}
+          required
+          onChange={handleChange}
+          name="confirmPassword"
+          value={confirmPassword}
+        />
 
         {/* <button disabled={!validated} type="submit">Submit</button> */}
         <button type="submit">Submit</button>
