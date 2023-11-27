@@ -1,10 +1,9 @@
 import "./sign-up-form.style.scss";
 import { useState } from "react";
 
-import {
-  createAuthUserWithEmailAndPassword,
-  createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+import FormInput from "../form-input/form-input.component";
+import Button from "../button/button.component";
 
 const defaultFormFields = {
   displayName: "",
@@ -22,9 +21,9 @@ const SignUpForm = () => {
   // This works, though I don't think it's good UX to have the submit button disabled without showing clear warnings as to why.
   // const validated = password.length >= passwordLength;
 
-  console.log(formFields);
-
-  const resetFormFields = () => {setFormFields(defaultFormFields)}
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -36,17 +35,12 @@ const SignUpForm = () => {
     event.preventDefault();
 
     // confirm that the password matches
-    if (password !== confirmPassword) alert("Passwords do not match");
+    if (password !== confirmPassword) alert("Passwords do not match.");
 
     // Authenticate then create userDoc with additional information (displayName)
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      const userDocRef = await createUserDocumentFromAuth(user, {
-        displayName,
-      });
+      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
     } catch (error) {
       switch (error.code) {
@@ -60,50 +54,18 @@ const SignUpForm = () => {
   };
 
   return (
-    <div>
-      <h1>Sign up with your email and password</h1>
+    <div className="sign-up-container">
+      <h2>Don't have an account?</h2>
+      <span>Sign up with your email and password</span>
 
       <form onSubmit={handleSubmit}>
-        <label>Display Name</label>
-        <input
-          type="text"
-          required
-          onChange={handleChange}
-          name="displayName"
-          value={displayName}
-        />
-
-        <label>Email</label>
-        <input
-          type="email"
-          required
-          onChange={handleChange}
-          name="email"
-          value={email}
-        />
-
-        <label>Password</label>
-        <input
-          type="password"
-          minLength={passwordLength}
-          required
-          onChange={handleChange}
-          name="password"
-          value={password}
-        />
-
-        <label>Confirmed Password</label>
-        <input
-          type="password"
-          minLength={passwordLength}
-          required
-          onChange={handleChange}
-          name="confirmPassword"
-          value={confirmPassword}
-        />
+        <FormInput label="Display Name" type="text" required onChange={handleChange} name="displayName" value={displayName} />
+        <FormInput label="Email" type="email" required onChange={handleChange} name="email" value={email} />
+        <FormInput label="Password" type="password" minLength={passwordLength} required onChange={handleChange} name="password" value={password} />
+        <FormInput label= "Confirm Password" type="password" minLength={passwordLength} required onChange={handleChange} name="confirmPassword" value={confirmPassword} />
 
         {/* <button disabled={!validated} type="submit">Submit</button> */}
-        <button type="submit">Submit</button>
+        <Button type="submit">Sign-up</Button>
       </form>
     </div>
   );
