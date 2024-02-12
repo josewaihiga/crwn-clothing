@@ -18,6 +18,10 @@
     align-items: center;
     align-items: center;
   
+    a{
+      color:inherit;
+    }
+
     &:hover {
       background-color: white;
       color: black;
