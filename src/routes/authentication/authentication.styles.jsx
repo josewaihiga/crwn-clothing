@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const DirectoryContainer = styled.div`
-  width: 100%;
+export const AuthenticatorContainer = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  width: 900px;
   justify-content: space-between;
-`
+  margin: 30px auto;
+`;
