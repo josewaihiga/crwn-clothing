@@ -32,6 +32,8 @@ export const Body = styled.div`
     font-weight: lighter;
     font-size: 16px;
   }
+
+
 `;
 
 export const DirectoryItemContainer = styled.div`
@@ -44,6 +46,16 @@ export const DirectoryItemContainer = styled.div`
   border: 1px solid black;
   margin: 0 7.5px 15px;
   overflow: hidden;
+
+  @container (max-width: 800px){
+  min-width: 40%;
+  }
+
+  @container (max-width: 600px){
+  min-width: 100%;
+  }
+
+
 
   & ${BackgroundImage} {
     transition: transform 2s cubic-bezier(0.25, 0.45, 0.45, 0.95);

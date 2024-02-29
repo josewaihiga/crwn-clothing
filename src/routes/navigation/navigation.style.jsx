@@ -22,9 +22,17 @@ export const NavLinks = styled.div`
       display: flex;
       align-items: center;
       justify-content: flex-end;
+
+      @media (max-width: 600px) {
+        width: 80%;
+      }
 `
 
 export const NavLink = styled(Link)`
         padding: 10px 15px;
         cursor: pointer;
+        
+        @media (max-width: 600px) {
+        padding: 10px 10px;
+        }
 `
