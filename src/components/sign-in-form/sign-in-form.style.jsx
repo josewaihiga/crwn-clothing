@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
-  width: 380px;
+  max-width: 380px;
+  width: 100%;
 
   h2 {
     margin: 10px 0;
@@ -12,6 +14,11 @@ export const Container = styled.div`
 
 export const ButtonsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 20px;
+
+  @container (max-width: 350px){
+  flex-wrap: wrap;
+  }
+
 `;

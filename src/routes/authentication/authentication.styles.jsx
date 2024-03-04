@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 export const AuthenticatorContainer = styled.div`
   display: flex;
-  width: 900px;
-  justify-content: space-between;
+  /* max-width: 900px; */
+  justify-content: center;
+  gap: 30px 5vw;
+  flex-wrap: wrap;
   margin: 30px auto;
+
 `;
