@@ -9,8 +9,7 @@ import "./index.scss";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { UserProvider } from "./contexts/user.context";
-import { CategoriesProvider } from "./contexts/categories.context";
+
 import { CartProvider } from "./contexts/cart.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -20,11 +19,9 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
 
-        <CategoriesProvider>
           <CartProvider>
             <App />
           </CartProvider>
-        </CategoriesProvider>
 
     </BrowserRouter>
   </Provider>
