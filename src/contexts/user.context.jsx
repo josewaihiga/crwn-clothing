@@ -3,15 +3,15 @@ import { createUserDocumentFromAuth, onAuthStateChangedListener } from "../utils
 
 import { createAction } from "../utils/reducer/reducer.utils";
 
+import { USER_ACTION_TYPES } from "../store/user/user.types";
+
 // as the actual value you want to access
 export const UserContext = createContext({
   currentUser: null,
   setCurrentUser: () => null,
 });
 
-export const USER_ACTION_TYPES = {
-  SET_CURRENT_USER: "SET_CURRENT_USER",
-};
+
 
 const userReducer = (state, action) => {
   const { type, payload } = action;
