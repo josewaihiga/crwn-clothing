@@ -14,7 +14,7 @@ import Checkout from "./routes/checkout/checkout.component";
 import { setCurrentUser } from "./store/user/user.action";
 
 const App = () => {
-  // This dependency never changes, so ignore the lint error asking you to add it to the array (you can add it at the cost of code clarity )
+  // This dependency never changes, so ignore the lint error asking you to add it to the array (you can add it at the cost of code clarity)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,8 +26,7 @@ const App = () => {
     });
 
     return unsubscribe;
-  }, []);
-
+  }, [dispatch]);
 
 
 
