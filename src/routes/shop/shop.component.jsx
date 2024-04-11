@@ -5,15 +5,14 @@ import { useDispatch } from "react-redux";
 import CategoriesPreview from "../categories-preview/categories-preview.component";
 import Category from "../category/category.component";
 
-import { fetchCategoriesAsync } from "../../store/categories/category.action";
-import { getCatergoriesAndDocuments } from "../../utils/firebase/firebase.utils";
+import { fetchCategoriesStart } from "../../store/categories/category.action";
 
 const Shop = () => {
-  // This dependency never changes, so ignore the lint error asking you to add it to the array (you can add it at the cost of code clarity)
+  // This dependency never changes, so ignore the lint error asking you to add it to the array (you can add it at the cost of code clarity, and the benfit of error )
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategoriesAsync());
+    dispatch(fetchCategoriesStart());
   }, [dispatch]);
 
   return (

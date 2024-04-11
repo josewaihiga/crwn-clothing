@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Outlet } from "react-router-dom";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
@@ -13,14 +13,22 @@ import CartDropdown from "../../components/cart-drop-down/cart-dropdown.componen
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 // Utils
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { signOutStart } from "../../store/user/user.action"
 
 // Styles
-import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigation.style";
+import { NavigationContainer, LogoContainer, NavLinks, NavLink, Wave } from "./navigation.style";
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
+
+  const displayName = currentUser?.displayName
+
+  const dispatch = useDispatch()
+
+  const signOutUser = () => {
+    dispatch(signOutStart());
+  }
 
   return (
     <Fragment>
@@ -30,6 +38,9 @@ const Navigation = () => {
         </LogoContainer>
 
         <NavLinks>
+        { displayName && 
+          <NavLink as="span"><Wave>👋</Wave> {displayName}</NavLink>
+          }
           <NavLink to="/shop">SHOP</NavLink>
           {currentUser ? (
             <NavLink as="span" onClick={signOutUser}>
