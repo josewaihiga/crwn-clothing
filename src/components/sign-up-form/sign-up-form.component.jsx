@@ -1,9 +1,14 @@
 import { useState } from "react";
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+import { useDispatch } from "react-redux";
+import { signUpStart } from "../../store/user/user.action";
+
+// Components
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
+// Styles
 import { Container } from "./sign-up-form.style";
 
 const defaultFormFields = {
@@ -17,7 +22,7 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
-
+  const dispatch = useDispatch();
 
   // Form validation criteria
   const passwordLength = 8;
@@ -42,11 +47,7 @@ const SignUpForm = () => {
 
     // Authenticate then create userDoc with additional information (displayName)
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
- 
-
-      await createUserDocumentFromAuth(user, { displayName });
-
+      dispatch(signUpStart(email, password, displayName));
       resetFormFields();
     } catch (error) {
       switch (error.code) {
@@ -54,7 +55,7 @@ const SignUpForm = () => {
           alert("Cannot create user, email already in use");
           break;
         default:
-          console.error(error);
+          console.error("user creation error: ",error);
       }
     }
   };
@@ -68,7 +69,7 @@ const SignUpForm = () => {
         <FormInput label="Display Name" type="text" required onChange={handleChange} name="displayName" value={displayName} />
         <FormInput label="Email" type="email" required onChange={handleChange} name="email" value={email} />
         <FormInput label="Password" type="password" minLength={passwordLength} required onChange={handleChange} name="password" value={password} />
-        <FormInput label= "Confirm Password" type="password" minLength={passwordLength} required onChange={handleChange} name="confirmPassword" value={confirmPassword} />
+        <FormInput label="Confirm Password" type="password" minLength={passwordLength} required onChange={handleChange} name="confirmPassword" value={confirmPassword} />
 
         {/* <button disabled={!validated} type="submit">Submit</button> */}
         <Button type="submit">Sign-up</Button>

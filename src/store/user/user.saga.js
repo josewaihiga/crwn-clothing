@@ -1,8 +1,9 @@
 import { takeLatest, put, all, call, take } from "redux-saga/effects";
 
 import { USER_ACTION_TYPES } from "./user.types";
-import { signInSuccess, signInFailed, signOutFailed, signOutSuccess } from "./user.action";
-import { getCurrentUser, createUserDocumentFromAuth, signInWithGooglePopup, signInAuthWithEmailAndPassword, signOutUser } from "../../utils/firebase/firebase.utils";
+import { signInSuccess, signInFailed, signOutSuccess, signOutFailed, signUpSuccess, signUpFailed } from "./user.action";
+
+import { getCurrentUser, createUserDocumentFromAuth, signInWithGooglePopup, signInAuthWithEmailAndPassword, signOutUser, createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 
 export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
   try {
@@ -52,7 +53,24 @@ export function* signOut() {
   }
 }
 
-// Listners
+export function* signUp({ payload: { email, password, displayName } }) {
+  try {
+    const { user } = yield call(
+      createAuthUserWithEmailAndPassword, 
+      email, 
+      password
+      );
+    yield put(signUpSuccess(user, { displayName }));
+  } catch (error) {
+    yield put(signUpFailed(error));
+  }
+}
+
+export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
+  yield call(getSnapshotFromUserAuth, user, additionalDetails);
+}
+
+// Listeners
 
 export function* onCheckUserSession() {
   yield takeLatest(USER_ACTION_TYPES.CHECK_USER_SESSION, isUserAuthenticated);
@@ -66,12 +84,27 @@ export function* onGoogleSignInStart() {
   yield takeLatest(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
 
+export function* onSignUpStart() {
+  yield takeLatest(USER_ACTION_TYPES.SIGN_UP_START, signUp);
+}
+
 export function* onSignOutStart() {
   yield takeLatest(USER_ACTION_TYPES.SIGN_OUT_START, signOut);
+}
+
+export function* onSignUpSuccess() {
+  yield takeLatest(USER_ACTION_TYPES.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
 // userSagas
 
 export function* userSagas() {
-  yield all([call(onCheckUserSession), call(onGoogleSignInStart), call(onEmailSignInStart), call(onSignOutStart)]);
+  yield all([
+    call(onCheckUserSession), 
+    call(onGoogleSignInStart), 
+    call(onEmailSignInStart), 
+    call(onSignOutStart), 
+    call(onSignUpStart), 
+    call(onSignUpSuccess)
+  ]);
 }

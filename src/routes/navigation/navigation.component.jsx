@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { selectCurrentUser } from "../../store/user/user.selector";
+import { selectCurrentDisplayName, selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
 
 // Components
@@ -22,7 +22,7 @@ const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(selectIsCartOpen);
 
-  const displayName = currentUser?.displayName
+  const displayName = useSelector(selectCurrentDisplayName);
 
   const dispatch = useDispatch()
 
