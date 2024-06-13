@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
+import { SpinnerContainer } from "../spinner/spinner.styles";
+
 export const BaseButton = styled.button`
   min-width: 165px;
-  width: 100%;
+  /* width: 100%; */
   min-height: 50px;
   letter-spacing: 0.5px;
   padding: 0 35px 0 35px;
@@ -30,6 +32,10 @@ export const BaseButton = styled.button`
     color: black;
     border: 1px solid black;
   }
+
+  @container (max-width: 350px) {
+    width: 100%;
+  }
 `;
 
 export const GoogleSignInButton = styled(BaseButton)`
@@ -52,4 +58,9 @@ export const InvertedButton = styled(BaseButton)`
     color: white;
     border: none;
   }
+`;
+
+export const ButtonSpinner = styled(SpinnerContainer)`
+  width: 30px;
+  height: 30px;
 `;
