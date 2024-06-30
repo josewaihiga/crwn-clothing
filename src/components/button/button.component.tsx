@@ -13,12 +13,19 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
     [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
   }[buttonType]);
 
-const Button = ({ children, buttonType, isLoading, ...otherProps }) => {
+type ButtonProps = {
+  children?: string;
+  buttonType?: string;
+  isLoading?: boolean;
+  onClick: () => void;
+};
+
+const Button = ({ children, buttonType, isLoading, ...otherProps }: ButtonProps) => {
   const CustomButton = getButton(buttonType);
 
   return (
     <CustomButton disabled={isLoading} {...otherProps}>
-      {isLoading ? <ButtonSpinner/> : children}
+      {isLoading ? <ButtonSpinner /> : children}
     </CustomButton>
   );
 };

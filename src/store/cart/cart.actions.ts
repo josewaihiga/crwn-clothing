@@ -1,5 +1,7 @@
 import { CART_ACTION_TYPES } from "./cart.types";
-import { createAction } from "../../utils/reducer/reducer.utils";
+import { createAction, Action, ActionWithPayload } from "../../utils/reducer/reducer.utils";
+
+// Helper Functions
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find((cartItem) => cartItem.id === productToAdd.id);
@@ -26,6 +28,13 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 };
 
 const clearCartItem = (cartItems, cartItemToClear) => cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+
+// Action Types
+
+export type setIsCartOpen = ActionWithPayload<CART_ACTION_TYPES.SET_IS_CART_OPEN, boolean>;
+export type 
+
+// Actions
 
 export const setIsCartOpen = (bool) => {
   return createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool);
