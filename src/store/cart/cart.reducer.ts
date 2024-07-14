@@ -1,39 +1,33 @@
 import { AnyAction } from "redux-saga";
-import { CART_ACTION_TYPES } from "./cart.types";
 
-import { CartItemType } from "./cart.types";
+import { CartItem } from "./cart.types";
+import { setIsCartOpen, setCartItems } from "./cart.actions";
 
 export type CartState = {
-  readonly isCartOpen : boolean;
-  readonly cartItems : CartItemType[];
-}
+  readonly isCartOpen: boolean;
+  readonly cartItems: CartItem[];
+};
 
 const CART_INITIAL_STATE: CartState = {
   isCartOpen: false,
   cartItems: [],
 };
 
-export const cartReducer = (
-  state = CART_INITIAL_STATE, 
-  action = {} as AnyAction
-): CartState => {
-  const { type, payload } = action;
+export const cartReducer = (state = CART_INITIAL_STATE, action : AnyAction): CartState => {
 
-  switch (type) {
-    case CART_ACTION_TYPES.SET_CART_ITEMS:
-
+  if (setIsCartOpen.match(action)) {
     return {
-        ...state,
-        cartItems: payload,
-      };
-
-    case CART_ACTION_TYPES.SET_IS_CART_OPEN:
-      return {
-        ...state,
-        isCartOpen: payload,
-      };
-
-    default:
-      return state;
+      ...state,
+      isCartOpen: action.payload,
+    };
   }
+
+  if (setCartItems.match(action)) {
+    return {
+      ...state,
+      cartItems: action.payload,
+    };
+  }
+
+  return state;
 };

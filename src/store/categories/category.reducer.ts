@@ -1,6 +1,6 @@
 import { AnyAction } from "redux-saga";
 import { Category } from "./category.types";
-import { fetchCategoriesStart, fetchCategoriesSuccess, FetchCategoriesFail, fetchCategoriesFail } from "./category.action";
+import { fetchCategoriesStart, fetchCategoriesSuccess, fetchCategoriesFail } from "./category.action";
 
 export type CategoriesState = {
   readonly categories: Category[];
@@ -16,7 +16,7 @@ export const CATEGORIES_INITIAL_STATE: CategoriesState = {
 
 export const categoriesReducer = (
   state = CATEGORIES_INITIAL_STATE, 
-  action = {} as AnyAction
+  action : AnyAction
 ): CategoriesState => {
   // const { type, payload } = action;
 
