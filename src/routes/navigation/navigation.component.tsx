@@ -13,7 +13,7 @@ import CartDropdown from "../../components/cart-drop-down/cart-dropdown.componen
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 
 // Utils
-import { signOutStart } from "../../store/user/user.action"
+import { signOutStart } from "../../store/user/user.action";
 
 // Styles
 import { NavigationContainer, LogoContainer, NavLinks, NavLink, Wave } from "./navigation.style";
@@ -24,11 +24,11 @@ const Navigation = () => {
 
   const displayName = useSelector(selectCurrentDisplayName);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const signOutUser = () => {
     dispatch(signOutStart());
-  }
+  };
 
   return (
     <Fragment>
@@ -38,17 +38,26 @@ const Navigation = () => {
         </LogoContainer>
 
         <NavLinks>
-        { displayName && 
-          <NavLink as="span"><Wave>👋</Wave> {displayName}</NavLink>
-          }
-          <NavLink to="/shop">SHOP</NavLink>
-          {currentUser ? (
-            <NavLink as="span" onClick={signOutUser}>
-              SIGN OUT
+          
+          {displayName && (
+            <NavLink as="span">
+              <Wave>👋</Wave> {displayName}
             </NavLink>
-          ) : (
-            <NavLink to="/auth">SIGN IN</NavLink>
           )}
+
+          <NavLink to="/shop">SHOP</NavLink>
+
+          {
+            currentUser ? (
+
+              <NavLink as="span" onClick={signOutUser}>
+                SIGN OUT
+              </NavLink>
+              
+            ) : (
+              <NavLink to="/auth">SIGN IN</NavLink>
+            )
+          }
 
           <CartIcon />
         </NavLinks>

@@ -1,7 +1,15 @@
+import { FC } from "react";
 import ProductCard from "../product-card/product-card.component";
 import {Container, Title, Preview} from "./category-preview.style";
 
-const CategoryPreview = ({ title, products }) => {
+import { CategoryItem } from "../../store/categories/category.types";
+
+type CategoryPreviewProps = {
+  title: string,
+  products: CategoryItem[]
+}
+
+const CategoryPreview:FC<CategoryPreviewProps> = ({ title, products }) => {
 
   return (
     <Container>

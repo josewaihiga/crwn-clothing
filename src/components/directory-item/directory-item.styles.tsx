@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-export const BackgroundImage = styled.div`
+type BackgroundImageProps = { imageUrl: string };
+
+export const BackgroundImage = styled.div<BackgroundImageProps>`
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
-  background-image: ${({ $imageUrl }) => `url(${$imageUrl})`};
+  background-image: ${({ imageUrl }) => `url(${imageUrl})`};
 `;
 
 export const Body = styled.div`
@@ -32,8 +34,6 @@ export const Body = styled.div`
     font-weight: lighter;
     font-size: 16px;
   }
-
-
 `;
 
 export const DirectoryItemContainer = styled.div`
@@ -47,15 +47,13 @@ export const DirectoryItemContainer = styled.div`
   margin: 0 7.5px 15px;
   overflow: hidden;
 
-  @container (max-width: 800px){
-  min-width: 40%;
+  @container (max-width: 800px) {
+    min-width: 40%;
   }
 
-  @container (max-width: 600px){
-  min-width: 100%;
+  @container (max-width: 600px) {
+    min-width: 100%;
   }
-
-
 
   & ${BackgroundImage} {
     transition: transform 2s cubic-bezier(0.25, 0.45, 0.45, 0.95);

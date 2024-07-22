@@ -5,7 +5,9 @@ import { setIsCartOpen } from "../../store/cart/cart.actions";
 import { selectIsCartOpen, selectCartCount } from "../../store/cart/cart.selector";
 
 // Styles
-import { CartIconContainer, ShoppingIcon, ItemCount } from "./cart-icon.styles";
+import { ReactComponent as ShoppingIcon } from "../../assets/shopping-bag.svg";
+
+import { CartIconContainer, ItemCount } from "./cart-icon.styles";
 
 const CartIcon = () => {
   const dispatch = useDispatch();
