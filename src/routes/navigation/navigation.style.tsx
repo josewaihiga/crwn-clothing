@@ -36,7 +36,7 @@ export const NavLinks = styled.div`
   align-items: center;
   justify-content: flex-end;
 
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
     width: 80%;
   }
 `;
@@ -66,6 +66,8 @@ export const Wave = styled.span`
   animation-iteration-count: 2; /* infinite: Never stop waving :) */
   transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
   display: inline-block;
+
+  font-style: normal;
 
   @keyframes wave-animation {
     0% {
@@ -101,10 +103,11 @@ export const DisplayName = styled(NavLink)`
   cursor: grab;
   user-select: none;
 
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  font-style: italic;
   border-radius: 100px;
 
-  @media (max-width: 800px){
+  @media (max-width: 600px){
     display: none;
   }
 `
