@@ -16,6 +16,7 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid darkgrey;
+
 `;
 
 export const HeaderBlock = styled.div`
@@ -25,6 +26,11 @@ export const HeaderBlock = styled.div`
   &:last-child {
     width: 8%;
   }
+
+  @media (max-width: 600px){
+    display: none;
+  }
+
 `;
 
 export const Total = styled.span`

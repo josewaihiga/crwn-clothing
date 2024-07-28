@@ -1,5 +1,4 @@
 import { Middleware } from "redux";
-import { AnyAction } from "redux-saga";
 
 import { RootState } from "../store";
 

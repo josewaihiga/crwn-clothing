@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call, take } from "typed-redux-saga/macro";
+import { takeLatest, put, all, call } from "typed-redux-saga/macro";
 
 import { User } from "firebase/auth";
 
@@ -22,7 +22,6 @@ import {
   signInAuthWithEmailAndPassword, 
   signOutUser, 
   createAuthUserWithEmailAndPassword,
-  UserData, 
   AdditionalInformation 
 } from "../../utils/firebase/firebase.utils";
 
