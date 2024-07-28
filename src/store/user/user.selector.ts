@@ -1,7 +1,6 @@
 import { createSelector } from "reselect";
 
 import { UserState } from "./user.reducer";
-import { UserData } from "../../utils/firebase/firebase.utils";
 import { RootState } from "../store";
 
 export const selectUserReducer = (state: RootState): UserState => state.user;

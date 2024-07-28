@@ -7,12 +7,26 @@ export const NavigationContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+
+  @media screen and (max-width: 600px){
+    height: 60px;
+    padding: 10px 0px;
+    margin-bottom: 20px;
+  }
+
 `;
 
 export const LogoContainer = styled(Link)`
   height: 100%;
   width: 70px;
-  padding: 25px;
+  padding: 10px 0;
+
+  @media screen and (max-width: 600px){
+    width: 50px;
+    padding: 0px;
+
+  }
+
 `;
 
 export const NavLinks = styled.div`
@@ -27,6 +41,8 @@ export const NavLinks = styled.div`
   }
 `;
 
+
+
 type LinkProps =
   | React.ComponentPropsWithoutRef<typeof Link>
   | {
@@ -40,6 +56,7 @@ export const NavLink = styled(Link)<LinkProps>`
 
   @media (max-width: 600px) {
     padding: 10px 10px;
+    /* font-size: 0.8em; */
   }
 `;
 
@@ -77,4 +94,17 @@ export const Wave = styled.span`
       transform: rotate(0deg);
     }
   }
+
 `;
+
+export const DisplayName = styled(NavLink)`
+  cursor: grab;
+  user-select: none;
+
+  border: 1px solid black;
+  border-radius: 100px;
+
+  @media (max-width: 800px){
+    display: none;
+  }
+`

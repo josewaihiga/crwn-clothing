@@ -10,13 +10,13 @@ import { selectIsCartOpen } from "../../store/cart/cart.selector";
 // Components
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-drop-down/cart-dropdown.component";
-import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
+import { ReactComponent as CrwnLogo } from "../../assets/crown-logo.svg";
 
 // Utils
 import { signOutStart } from "../../store/user/user.action";
 
 // Styles
-import { NavigationContainer, LogoContainer, NavLinks, NavLink, Wave } from "./navigation.style";
+import { NavigationContainer, LogoContainer, NavLinks, NavLink, DisplayName, Wave } from "./navigation.style";
 
 const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -40,9 +40,9 @@ const Navigation = () => {
         <NavLinks>
           
           {displayName && (
-            <NavLink as="span">
+            <DisplayName draggable="true" as="span">
               <Wave>👋</Wave> {displayName}
-            </NavLink>
+            </DisplayName>
           )}
 
           <NavLink to="/shop">SHOP</NavLink>

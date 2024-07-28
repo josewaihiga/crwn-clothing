@@ -22,6 +22,9 @@ export const ImageContainer = styled.div`
 
 export const ItemName = styled.span`
   width: 23%;
+  @media (max-width: 600px){
+    width: 30%;
+  }
 `;
 
 export const ItemQuantity = styled.span`
@@ -32,6 +35,10 @@ export const ItemQuantity = styled.span`
 
 export const ItemPrice = styled.span`
   width: 23%;
+
+  @media (max-width: 600px){
+    width: 13%;
+  }
 `;
 
 export const ItemArrow = styled.div`
