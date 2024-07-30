@@ -17,4 +17,8 @@ export const Preview = styled.div`
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
       gap: 50px 20px;
+
+      @media (max-width: 600px){
+        grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+    }
 `
